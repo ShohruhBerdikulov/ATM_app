@@ -29,12 +29,12 @@ public class ATMservice {
     @Autowired
     UserRepository userRepository;
 
-    public List<ATM> getList(){
+    public List<ATM> getList() {
         return atmRepository.findAll();
     }
 
 
-//    Bankomatda mavjud bo’lgan kupyuralar ro’yxati va miqdori
+    //    Bankomatda mavjud bo’lgan kupyuralar ro’yxati va miqdori
 //    (Bunda bankomat bo’yicha ko’riladi).
     public ApiResponse getBanknotes(Integer id) {
         Optional<ATM> byId = atmRepository.findById(id);
@@ -163,9 +163,17 @@ public class ATMservice {
     //delete ATM
     public ApiResponse delete(Integer id) {
         Optional<ATM> byId = atmRepository.findById(id);
-        if (!byId.isPresent()) return  new ApiResponse("This id not found",false);
+        if (!byId.isPresent()) return new ApiResponse("This id not found", false);
         atmRepository.deleteById(id);
         return new ApiResponse("success", true);
+    }
+
+    public ApiResponse getOne(Integer id) {
+        Optional<ATM> byId = atmRepository.findById(id);
+        return byId.map(atm -> new ApiResponse("success", true, atm)).orElseGet(() -> new ApiResponse("This id not found", false));
+    }
+    public ApiResponse getAll(){
+        return new ApiResponse("success",true,atmRepository.findAll());
     }
 
 

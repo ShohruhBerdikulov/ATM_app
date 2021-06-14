@@ -221,8 +221,6 @@ public class MainService {
         atmHistoryRepository.save(atmHistory);
         return new ApiResponse("success", true);
     }
-
-
 }
 
 

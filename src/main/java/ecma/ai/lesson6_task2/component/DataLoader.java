@@ -59,11 +59,11 @@ public class DataLoader implements CommandLineRunner {
             Bank universalBank = bankRepository.save(new Bank(1, "UniversalBank"));
 
             List<Card> cardList = new ArrayList<>();
-            cardList.add(new Card(1, "8600", "111", universalBank, "TJU", "1234",
+            cardList.add(new Card(1, "8600999988885555", "111", universalBank, "TJU", "1234",
                     Date.valueOf("2021-03-05"), CardType.HUMO, false, false, 0));
-            cardList.add(new Card(2, "8601", "111", universalBank, "AAA", "1111",
+            cardList.add(new Card(2, "8601999988885555", "111", universalBank, "AAA", "1111",
                     Date.valueOf("2021-05-04"), CardType.UZCARD, false, false, 0));
-            cardList.add(new Card(3, "8602", "111", universalBank, "JJJ", "1111",
+            cardList.add(new Card(3, "8602999988885555", "111", universalBank, "JJJ", "1111",
                     Date.valueOf("2021-05-04"), CardType.HUMO, false, false, 0));
 
             cardRepository.saveAll(cardList);

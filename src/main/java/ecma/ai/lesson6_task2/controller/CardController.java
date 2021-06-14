@@ -1,7 +1,11 @@
 package ecma.ai.lesson6_task2.controller;
 
+import ecma.ai.lesson6_task2.Service.CardService;
+import ecma.ai.lesson6_task2.Service.UserService;
 import ecma.ai.lesson6_task2.entity.Card;
 import ecma.ai.lesson6_task2.entity.User;
+import ecma.ai.lesson6_task2.payload.CardDto;
+import ecma.ai.lesson6_task2.payload.UserDto;
 import ecma.ai.lesson6_task2.payload.types.ApiResponse;
 import ecma.ai.lesson6_task2.payload.ClientDto;
 import ecma.ai.lesson6_task2.repository.CardRepository;
@@ -10,11 +14,9 @@ import ecma.ai.lesson6_task2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -27,7 +29,8 @@ public class CardController {
     UserRepository userRepository;
     @Autowired
     RoleRepository roleRepository;
-
+    @Autowired
+    CardService service;
     @PostMapping
     public HttpEntity<?> cardAddToClient(@RequestBody ClientDto clientDto) {
 
@@ -48,4 +51,27 @@ public class CardController {
 
         return ResponseEntity.ok().body(new ApiResponse("Success!", true));
     }
+
+
+
+    @GetMapping("/{id}")
+    public HttpEntity<?> getone(@PathVariable Integer id) {
+        return ResponseEntity.ok().body(service.getId(id));
+    }
+
+    @PostMapping("/addCard")
+    public HttpEntity<?> addAtm(@RequestBody CardDto dto) {
+        return ResponseEntity.ok().body(service.addCard(dto));
+    }
+
+    @PutMapping("/{id}")
+    public HttpEntity<?> put(@RequestBody CardDto dto, @PathVariable Integer id) {
+        return ResponseEntity.ok().body(service.editCard( id,dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public HttpEntity<?> dell(@PathVariable Integer id) {
+        return ResponseEntity.ok().body(service.delete(id));
+    }
+
 }
